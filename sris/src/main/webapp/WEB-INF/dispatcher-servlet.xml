@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+   <context:component-scan base-package="sris.controllers" />
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix">
+         <value>/WEB-INF/views/</value>
+      </property>
+      <property name="suffix">
+         <value>.jsp</value>
+      </property>
+   </bean>
+   <!-- Mapping of static files -->
+   <mvc:resources mapping="/resources/**" location="/resources/" />
+   <mvc:annotation-driven />
+   <mvc:default-servlet-handler />
+   <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+      <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=sris_db;integratedSecurity=true;" />
+      
+   </bean>
+   <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+      <property name="dataSource" ref="ds" />
+   </bean>
+   <bean id="studentDao" class="sris.dao.StudentDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="studentgradesDao" class="sris.dao.StudentGradesDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="subjectsDao" class="sris.dao.SubjectsDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="torDao" class="sris.dao.TORDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="gradesheetDao" class="sris.dao.GradesheetDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="facultyDao" class="sris.dao.FacultyDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="facultysubjectDao" class="sris.dao.FacultySubjectDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="userDao" class="sris.dao.UserDao">
+      <property name="template" ref="jt" />
+   </bean>
+    <bean id="curriculumDao" class="sris.dao.CurriculumDao">
+      <property name="template" ref="jt" />
+   </bean>
+ 
+    <bean id="courseDao" class="sris.dao.CourseDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="syDao" class="sris.dao.SyDao">
+      <property name="template" ref="jt" />
+   </bean>
+  <bean id="semesterDao" class="sris.dao.SemesterDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="sectionDao" class="sris.dao.SectionDao">
+      <property name="template" ref="jt" />
+   </bean>
+    <bean id="paginationDao" class="sris.dao.PaginationDao">
+      <property name="template" ref="jt" />
+   </bean>
+   <bean id="subjectcurriculumDao" class="sris.dao.SubjectCurriculumDao">
+      <property name="template" ref="jt" />
+   </bean>
+   
+   
+   
+   
+
+</beans>

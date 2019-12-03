@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gradesheet" language="javascript" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0d401fb6-441d-4dbf-b5d6-2e0f9aeff731">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<parameter name="code" class="java.lang.String"/>
+	<parameter name="section" class="java.lang.String"/>
+	<parameter name="semester" class="java.lang.String"/>
+	<parameter name="sy" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT tbl_student.number as number, tbl_student.name as name, tbl_record.grade as grade, tbl_record.remarks as remarks, 
+tbl_subject.code as code, tbl_subject.description as description, tbl_subject.units as units, tbl_record.section as section, tbl_record.semester as semester, tbl_record.sy as sy
+FROM   tbl_record INNER JOIN
+             tbl_student ON tbl_record.student_id = tbl_student.id INNER JOIN
+             tbl_subject ON tbl_record.subject_id = tbl_subject.id
+			 WHERE
+			 tbl_subject.code= $P{code}  AND tbl_record.section= $P{section} AND 
+			 tbl_record.semester= $P{semester}  AND tbl_record.sy=$P{sy} 
+
+			 ORDER BY tbl_student.name]]>
+	</queryString>
+	<field name="number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="number"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="grade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="grade"/>
+	</field>
+	<field name="remarks" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="remarks"/>
+	</field>
+	<field name="code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="code"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+	</field>
+	<field name="units" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="units"/>
+	</field>
+	<field name="section" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="section"/>
+	</field>
+	<field name="semester" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="semester"/>
+	</field>
+	<field name="sy" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sy"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="129" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="570" height="20" uuid="283c1610-aec1-4c66-b7be-239eb78ff7d9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="17"/>
+				</textElement>
+				<text><![CDATA[POLYTECHNIC UNIVERSITY OF THE PHILIPPINES
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="570" height="20" uuid="4ebb1698-c62a-4940-8f08-6fceb1e5cbf3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="17" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[QUEZON CITY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="76" width="570" height="30" uuid="812498ba-dda2-4b51-8e6f-73dd3348b11f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="25" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[GRADESHEET]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="fb20ff62-a6c7-47fe-8d2a-b5c6614af5ff"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[STUDENT
+NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="30" height="30" uuid="bb4a2142-0dd1-45e1-b9d8-6dd8b1c9685a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="280" height="30" uuid="3172c413-579c-40df-8896-b81a1694d29f"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[STUDENT’S NAME
+(Alphabetical Order)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="80" height="30" uuid="47bc4f22-8e94-4cdd-a1ac-60ca0eeada9e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[FINAL 
+RATING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="80" height="30" uuid="14d9c412-76e2-49aa-905d-808e21d79ac8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<text><![CDATA[REMARKS]]></text>
+			</staticText>
+			<frame>
+				<reportElement x="0" y="0" width="570" height="30" uuid="38603708-a53d-4a7d-b317-7a414675e918"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="-1" width="570" height="20" uuid="bdee7465-6a90-4e3f-9d0d-2663fa3c6f6e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<frame>
+					<reportElement x="100" y="0" width="30" height="20" uuid="c6f9d5fe-3dc8-4f8f-b8fa-9ba29b5505f2"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField>
+						<reportElement x="0" y="0" width="30" height="20" uuid="dc95e015-ebe4-4dd8-9fe5-d52fedacd914"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="Times New Roman" size="9"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement x="410" y="0" width="80" height="20" uuid="04ee5ba5-ed4a-4954-8c1e-2afdafeb84ec"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</frame>
+				<textField>
+					<reportElement x="0" y="0" width="100" height="20" uuid="0b0a6b62-f972-4b6f-96dd-ef5b5643e8f2">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8773870-b31c-4be6-be92-d8b8216e2a20"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="161" y="0" width="250" height="20" forecolor="#000000" uuid="73a09877-7c1f-4a89-bd54-b3e0403a7d90">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d7d8b17-32f1-4b2f-97c4-90348f150c39"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
+						<font fontName="Times New Roman" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="410" y="0" width="80" height="20" uuid="e9b31b25-d528-447a-a167-b0ab25a93565">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63f6c067-11fe-4486-aa67-246bfed7ba7b"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="490" y="0" width="80" height="20" uuid="246a43d2-9038-4c28-8485-86273b47bc27">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1c07d7e-59c6-4fed-9942-739a3a36e3bb"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="215" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="570" height="70" uuid="b3a53c80-2d3a-4ad0-aed9-22d31a6674c4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[(TO BE FILLED IN QUADRUPLICATE)
+
+NOTE: After the last entry indicate “NOTHING FOLLOWS” and initial.  Grades of students should be handwritten.
+Any alteration in the entry must be initialed and dated by the Professor/Instructor.
+Please copy on the upper right hand corner of every sheet the control number of the original.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="78" width="95" height="15" uuid="8c8ec662-d13c-42c9-9cf0-95719057475e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="99" width="95" height="15" uuid="9fb7082f-fece-4a75-93ca-a4c3c1a8ae4b"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{section}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="78" width="145" height="15" uuid="664857c6-e27a-488a-8d05-e5de5a84fc8e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="99" width="50" height="15" uuid="5c7ff6f3-1bc9-4c86-8a3f-8e0f35d5cae9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{semester}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="99" width="60" height="15" uuid="6f196336-2eb8-4f82-9d32-4fc202b5b281"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sy}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="78" width="60" height="15" uuid="b2e9e54d-4cc8-446f-9da5-044b15fa80b9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{units}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="135" width="570" height="59" uuid="2dbc627f-bf0d-49a8-a0ce-b33811dea821"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[(Signature of Department Head)		 (Signature Over Printed Name of Instructor)
+
+
+DATE REC’D. OFFICE OF THE REGISTRAR  __________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="78" width="80" height="15" uuid="7c809f83-a319-4e20-8f22-a5be6f119284"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Course Code:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="99" width="80" height="15" uuid="337e090d-72c5-46c8-bbff-dc6364cfb79e"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Year & Section:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="78" width="100" height="15" uuid="2a682901-3465-4f38-995f-28a52d45c365"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Course Description:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="78" width="80" height="15" uuid="f43a6c31-15b5-4111-9f72-e1a8382765d7"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Number of Units:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="99" width="80" height="15" uuid="530c92fc-d6ec-4f51-be6a-60f273dcbca5"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[School Year:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="99" width="60" height="15" uuid="1fdcba5b-3ff5-428b-9dd3-847087bf0691"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Semester:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="99" width="80" height="15" uuid="5dec271e-0a89-4b23-aabc-7d8e8bd4ebb9"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[Room:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

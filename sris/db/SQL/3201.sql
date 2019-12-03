@@ -1,0 +1,1 @@
+SELECT distinct tbl_subject.code+CASE WHEN tbl_subject.description != '' THEN (' - '+tbl_subject.description) ELSE '' end, tbl_subject.units, tbl_record.section, tbl_record.semester, tbl_record.sy FROM tbl_record INNER JOIN tbl_subject ON tbl_record.subject_id = tbl_subject.id where (tbl_subject.code+' '+tbl_subject.description)= 'MN 582 ' AND tbl_subject.isdeleted='0'

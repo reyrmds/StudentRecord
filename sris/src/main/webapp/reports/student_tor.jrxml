@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="student_tor" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3a7f1afb-b414-42f2-b3c6-10c6332a13a9">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="sris"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="10"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="985"/>
+	<parameter name="studentid" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT tbl_student.number as number,tbl_student.name as name,
+tbl_subject.code as code, 
+tbl_subject.description as description, 
+CASE WHEN tbl_records.grade IS NULL THEN ' ' ELSE tbl_records.grade END as grade, 
+tbl_subject.units as units,
+tbl_sy.sy+', '+CASE WHEN tbl_semester.semester like '1st' THEN 'FIRST SEMESTER' 
+WHEN  tbl_semester.semester like '2nd' THEN 'SECOND SEMESTER' 
+WHEN  tbl_semester.semester like 'SUMMER' THEN 'SUMMER' 
+ELSE  tbl_semester.semester  END AS sysem ,
+
+(SELECT count( DISTINCT  sy+', '+semester)  
+FROM   tbl_records INNER JOIN
+tbl_student ON tbl_records.student_id = tbl_student.id INNER JOIN
+tbl_sy ON tbl_records.sy_id=tbl_sy.id INNER JOIN
+tbl_semester ON tbl_records.sem_id = tbl_semester.id
+where tbl_student.id= $P{studentid} 
+) as count
+,
+(SELECT count( DISTINCT  sy+', '+semester)  
+FROM   tbl_records INNER JOIN
+tbl_student ON tbl_records.student_id = tbl_student.id INNER JOIN
+tbl_sy ON tbl_records.sy_id=tbl_sy.id INNER JOIN
+tbl_semester ON tbl_records.sem_id = tbl_semester.id
+where tbl_student.id= $P{studentid} and semester like 'summer' 
+) as summer,
+ 
+(SELECT max (tbl_course.code+' '+tbl_section.section) FROM tbl_records INNER JOIN
+tbl_course ON tbl_records.course_id = tbl_course.id INNER JOIN
+tbl_section ON tbl_records.section_id = tbl_section.id 
+WHERE STUDENT_ID =$P{studentid} 
+) as section
+
+ 
+FROM   tbl_records INNER JOIN
+tbl_student ON tbl_records.student_id = tbl_student.id INNER JOIN
+tbl_faculty_subject ON tbl_records.faculty_subject_id = tbl_faculty_subject.id INNER JOIN
+tbl_course ON tbl_records.course_id = tbl_course.id INNER JOIN
+tbl_section ON tbl_records.section_id = tbl_section.id INNER JOIN
+tbl_semester ON tbl_records.sem_id = tbl_semester.id INNER JOIN
+tbl_sy ON tbl_records.sy_id = tbl_sy.id  INNER JOIN
+tbl_faculty ON tbl_faculty_subject.faculty_id = tbl_faculty.id INNER JOIN
+tbl_subject ON tbl_faculty_subject.subject_id = tbl_subject.id
+where tbl_student.id= $P{studentid} AND tbl_records.isdeleted='0'
+
+ORDER BY (tbl_sy.sy+' '+tbl_semester.semester)]]>
+	</queryString>
+	<field name="number" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="1"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="2"/>
+	</field>
+	<field name="code" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="3"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="4"/>
+	</field>
+	<field name="grade" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="5"/>
+	</field>
+	<field name="units" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="6"/>
+	</field>
+	<field name="sysem" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="7"/>
+	</field>
+	<field name="count" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="8"/>
+	</field>
+	<field name="summer" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="9"/>
+	</field>
+	<field name="section" class="java.lang.String">
+		<property name="net.sf.jasperreports.sql.field.column.index" value="10"/>
+	</field>
+	<background>
+		<band height="630" splitType="Stretch">
+			<image>
+				<reportElement x="132" y="330" width="313" height="300" uuid="ac535bb1-7829-4afa-b7b7-6737c52ee184"/>
+				<imageExpression><![CDATA["x.PNG"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="248" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="40" y="99" width="230" height="109" uuid="75937045-251b-4ed8-a8c6-3899033e49ea"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Student No.				
+Student Name	
+Section			
+Address				
+Date of Admission			
+Elementary School			
+	Year Graduated		
+High School				
+	Year Graduated	
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="191" y="99" width="28" height="109" uuid="7357693a-c9f2-4b95-9c0c-6fa4c20d321a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<text><![CDATA[:
+:
+:
+:
+:
+:
+:
+:
+:
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="96" width="46" height="15" uuid="58cdba91-1afb-452e-ada8-4bf44673b6ac"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="471" y="96" width="80" height="15" forecolor="#000000" uuid="d92a1900-d7a0-45b5-9696-34872f8027ff"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9.5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="208" width="52" height="19" forecolor="#000000" uuid="e5d77fcc-ef20-416b-92ff-8bdb3271e7f3"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="9.5" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Attended:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="450" y="208" width="50" height="19" forecolor="#000000" uuid="f811b1ff-a9af-4652-80be-00341a6f80eb"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="9.5" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Summer:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" stretchType="ContainerBottom" x="475" y="78" width="51" height="15" forecolor="#080707" uuid="7a3946ae-c623-40ab-9883-beae1dbaae2d"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9.5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="497" y="78" width="39" height="15" forecolor="#080707" uuid="b66ed69b-ac30-4f1c-a5bc-6f0fbf8e82a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="9.5" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="97" width="174" height="12" isRemoveLineWhenBlank="true" uuid="3499a372-ecf7-4030-969c-92ac22fac998"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="109" width="174" height="12" uuid="9d7f1d8a-f8d8-42f4-88df-e5b8cd1b25bb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9.5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="208" width="100" height="19" uuid="42f4e2b1-b59d-4f56-aea3-2d5b6099430f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="208" width="70" height="19" uuid="849cdc62-a627-461c-8c5c-c222ab1fc80d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{summer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="220" y="121" width="174" height="12" uuid="6ffb7ddc-b5ed-4abe-aa14-3ed1ad4afa37"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{section}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="13" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="139" y="0" width="292" height="15" isRemoveLineWhenBlank="true" uuid="fd9f9651-0789-4bac-a2cf-cf0816f07f53">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b531f593-a2be-437e-9548-7a96a5c89686"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sysem}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="39" y="0" width="100" height="15" uuid="bd53bd94-838b-4a77-b3a7-1823ef7932ab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01644e76-3818-4231-9378-7b0201b0572f"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="0" width="311" height="15" uuid="ff3e44dd-21a8-42fd-8c40-5cfd0e6a956c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7308a050-8a12-4cab-91db-64f7585d4573"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="60" height="15" uuid="cc409944-bcc8-4ddd-aedc-2e0522ef6e11">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea6ee33d-6100-4811-9d12-10585b66997b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="60" height="15" uuid="428f9857-9964-4a9a-986d-75120c05a370">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5bb74ae4-5abb-447f-8340-bd788a7022a8"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="9.5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{units}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="110" y="15" width="370" height="15" forecolor="#000000" uuid="42fa988f-6448-4212-85e3-8c762cf198e2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9.5" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CLEARED OF ALL PROPERTY AND MONEY ACCOUNTABILITIES]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="158" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="149" y="57" width="140" height="19" forecolor="#000000" uuid="49a3f653-78c6-41a2-a239-c12a9a450913"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="9.5" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Merly B. Gonzalbo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="149" y="87" width="140" height="19" forecolor="#000000" uuid="2b1b896d-531a-4a4c-bf0c-2e2627ed292e"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="9.5" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Cleotilde B. Servigon]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="319" y="65" width="140" height="38" forecolor="#000000" uuid="1810a968-ed7f-45f9-9ec3-4ada6db1829d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9.5" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[FIRMO A. ESGUERRA
+Director]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
